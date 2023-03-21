@@ -31,12 +31,15 @@ public class Picking : MonoBehaviour
      */
     IEnumerator MovingToPoint(Vector3 pos)
     {
-        
-        while ()
+        float distanceToPoint = Vector3.Distance(transform.position, pos);  // 좌표간의 거리
+        distanceToPoint = Mathf.Clamp(distanceToPoint * Time.deltaTime, 0f, distanceToPoint);
+
+        while (true)
         {
             //transform.Rotate(pos * 10f * Time.deltaTime);
             Vector3 pos_xz = new Vector3(pos.x, 0, pos.z);
-            transform.Translate(pos_xz * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, pos, distanceToPoint);
+            //transform.Translate(pos * Time.deltaTime);
             yield return null;
         }
     }
