@@ -16,12 +16,19 @@ public class Tank : MonoBehaviour
     public Transform myCannon = null;
     public Transform myTop = null;
     public Transform myMuzzle = null;
+    public Transform myAura = null;
+    public Transform myTopEffect = null;
     public Bomb myBomb = null;
     public GameObject orgBomb = null;   //원본 Bomb을 참조하기 위한 참조형 변수, Prefab Bomb을 참조해둠.
+    public GameObject auraEffect = null;
+    public GameObject topEffect = null;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instantiate(auraEffect, myAura.position, Quaternion.identity, myAura);
+        //moveEf.transform.SetParent(myAura);
+        Instantiate(topEffect, myTopEffect.position, myTopEffect.rotation, myTopEffect);
+        //topEf.transform.SetParent(myTopEffect);
     }
 
     // Update is called once per frame

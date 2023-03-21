@@ -13,6 +13,8 @@ public class Target : MonoBehaviour
 
     //코루틴을 지정하여 멈추게 하기 위해 Coroutine을 참조하는 변수 생성
     Coroutine move = null;
+
+    public GameObject destroyEffect = null;
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class Target : MonoBehaviour
         //destPos.x += Range / 2.0f;      //
 
         //코루틴 함수의 실행 명령 StartCoroutine("함수명"())
-        move = StartCoroutine(Moving());
+        //move = StartCoroutine(Moving());
     }
 
     // Update is called once per frame
@@ -44,6 +46,18 @@ public class Target : MonoBehaviour
         //// Lerp(a,b,t) t 는 시간값 0~1
         //transform.position = Vector3.Lerp(startPos, destPos, t);
         ////위 코드를 코루틴?으로 변경해봄
+    }
+    bool isQuitting = false;
+    //종료될 때 호출
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+    //파괴될 때 실행, 프로그램이 종료될 때도 실행이 됨
+    private void OnDestroy()
+    {
+        //생성될 때 위치값과 회전값을 넣어줄 수 있음, Quaternion.identity : 회전값이 0임
+        if (!isQuitting) Instantiate(destroyEffect, transform.position, Quaternion.identity);
     }
     //코루틴 함수는 계속 진행 중인 함수, ing를 붙여주면 나중에 보기 편함
     IEnumerator Moving()
