@@ -79,7 +79,7 @@ public class Picking : MonoBehaviour
         // 거리를 재고 실행해야 함.
         dir.Normalize();
 
-        StartCoroutine(Ratating(dir));
+        StartCoroutine(Rotating(dir));
         // 회전시키기, 회전 또한 정규화를 먼저 해야 함
         {
             //float d = Vector3.Dot(transform.forward, dir);
@@ -121,7 +121,7 @@ public class Picking : MonoBehaviour
 
     // 마우스 클릭한 지점을 바라보게 회전
     Vector3 targetRot;
-    IEnumerator Ratating(Vector3 dir)
+    IEnumerator Rotating(Vector3 dir)
     {
         {
          //while (true)
