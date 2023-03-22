@@ -68,7 +68,7 @@ public class Target : MonoBehaviour
          * 시스템상 성능이 증가하진 않으나 코드의 가독성이 증가해 사용을 많이 함.
          */
 
-        //
+        //선형 보관을 이용해 좌우 움직임 구현
         float Range = 2.0f;         //타겟이 움직이는 범위
         Vector3 startPos, destPos;  //시작 지점, 도착 지점
         float t = 0.0f;             //보관 시간을 저장 할 변수 [0~1]

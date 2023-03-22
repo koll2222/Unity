@@ -65,7 +65,7 @@ public class Bomb : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Tag 방식은 지양하고 Layer 방식을 지향.
-        if (other.gameObject.tag == "Bomb") return;
+        if (other.gameObject.tag == "Bomb" || other.gameObject.tag == "Ground") return;
         { 
         ////other의 로컬 좌표값을 tmp에 저장, 여기서의 other는 파괴시킬 오브젝트
         //Vector3 tmp = other.transform.position;
@@ -87,6 +87,7 @@ public class Bomb : MonoBehaviour
     }
     void DestroyObject(GameObject obj)
     {
+        if (obj.gameObject.tag == "Bomb" || obj.gameObject.tag == "Ground") return;
         Vector3 tmp = obj.transform.position;
         Destroy(obj.gameObject);
         StartCoroutine(CreateDelay(tmp));
