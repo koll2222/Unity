@@ -62,18 +62,16 @@ public class Meteor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        {//if( other.transform.gameObject.layer != boundaryMask)
-         //{ 
-         //    if ( ((1 >> other.transform.gameObject.layer) & targetMask) == 1)
-         //    {
-         //        Instantiate(OnHit, other.transform.position, Quaternion.identity);
-         //        Destroy(other.gameObject);
-         //    }
-         //    else
-         //        Debug.Log(other.transform.gameObject.layer);
-         //}
+        if (((1 >> other.transform.gameObject.layer) & targetMask) != 0)
+        {
+            Instantiate(OnHit, other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
         }
-        Instantiate(OnHit, other.transform.position, Quaternion.identity);
-        Destroy(other.gameObject);
+        else
+            Debug.Log(other.transform.gameObject.layer);
     }
+
+    //Instantiate(OnHit, other.transform.position, Quaternion.identity);
+    //Destroy(other.gameObject);
 }
+
