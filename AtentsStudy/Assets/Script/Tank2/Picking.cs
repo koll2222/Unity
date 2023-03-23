@@ -35,7 +35,7 @@ public class Picking : MonoBehaviour
                     targetPos = transform.position;             // 현재 위치
                     targetRot = transform.rotation.eulerAngles; // 현재 각? Quaternion 값이기에 euler 값으로 변형
 
-                    StartCoroutine(MovingToPoint(hit.point)); 
+                    StartCoroutine(MovingToPos(hit.point)); 
                 }
 
                 
@@ -45,7 +45,7 @@ public class Picking : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRot), 10.0f * Time.deltaTime);
     }
     Vector3 targetPos;
-    IEnumerator MovingToPoint(Vector3 pos)
+    IEnumerator MovingToPos(Vector3 pos)
     {
         {/* 시작 지점의 좌표, 도착 지점의 좌표, 좌표간의 거리, 도착 판정, while문 끝내는 방법.
          * Lerp를 사용하면 조금 편해짐
@@ -79,6 +79,7 @@ public class Picking : MonoBehaviour
         // 거리를 재고 실행해야 함.
         dir.Normalize();
 
+        //Rotating이 끝날 때 까지 기다렸다가 실행하게 됨
         StartCoroutine(Rotating(dir));
         // 회전시키기, 회전 또한 정규화를 먼저 해야 함
         {
