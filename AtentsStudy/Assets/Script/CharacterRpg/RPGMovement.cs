@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RPGMovement : RPGProperty
 {
 
-    protected void MoveToPos(Vector3 pos)
+    protected void MoveToPos(Vector3 pos, UnityAction done = null)
     {
         StopAllCoroutines();
-        StartCoroutine(MovingToPos(pos));
+        StartCoroutine(MovingToPos(pos, done));
     }
-    IEnumerator MovingToPos(Vector3 pos)
+    IEnumerator MovingToPos(Vector3 pos, UnityAction done)
     {
         // 목적지의 방향
         Vector3 dir = pos - transform.position;
@@ -24,16 +25,20 @@ public class RPGMovement : RPGProperty
 
         while(dist > 0.0f)
         {
-            float delta = MoveSpeed * Time.deltaTime;
-            if(dist - delta < 0.0f)
+            if (!myAnim.GetBool("isAttacking"))
             {
-                delta = dist;
+                float delta = MoveSpeed * Time.deltaTime;
+                if (dist - delta < 0.0f)
+                {
+                    delta = dist;
+                }
+                dist -= delta;
+                transform.Translate(dir * delta, Space.World);
             }
-            dist -= delta;
-            transform.Translate(dir * delta, Space.World);
             yield return null;
         }
         myAnim.SetBool("isRunning", false);
+        done?.Invoke();
     }
 
     IEnumerator Rotating(Vector3 dir)
