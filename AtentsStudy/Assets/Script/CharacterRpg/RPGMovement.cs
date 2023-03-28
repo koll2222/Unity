@@ -11,6 +11,11 @@ public class RPGMovement : RPGProperty
         StopAllCoroutines();
         StartCoroutine(MovingToPos(pos, done));
     }
+    protected void FollowTarget(Transform target)
+    {
+        StopAllCoroutines();
+        StartCoroutine(FollowingTarget(target));
+    }
     IEnumerator MovingToPos(Vector3 pos, UnityAction done)
     {
         // 목적지의 방향
@@ -21,7 +26,7 @@ public class RPGMovement : RPGProperty
         dir.Normalize();
 
         StartCoroutine(Rotating(dir));
-        myAnim.SetBool("isRunning", true);
+        myAnim.SetBool("isMoving", true);
 
         while(dist > 0.0f)
         {
@@ -37,7 +42,7 @@ public class RPGMovement : RPGProperty
             }
             yield return null;
         }
-        myAnim.SetBool("isRunning", false);
+        myAnim.SetBool("isMoving", false);
         done?.Invoke();
     }
 
@@ -60,6 +65,56 @@ public class RPGMovement : RPGProperty
             }
             angle -= delta;
             transform.Rotate(Vector3.up, delta * rotDir);
+            yield return null;
+        }
+    }
+
+    /* 대상을 따라다니게 할 코루틴
+     * Transform을 받아오는 이유 :
+     * position 값은 값형이라 코루틴 진행중 값이 변하지 않음
+     * Transform은 참조형이라 코루틴 진행 중에도 값이 변하게 됨.
+     * 움직이는 대상을 따라다니게 할 목적이면 이게 맞다
+     */
+    IEnumerator FollowingTarget(Transform target)
+    {
+        while (target != null)
+        {
+            if (!myAnim.GetBool("isAttacking"))
+            {
+                myAnim.SetBool("isMoving", true);
+                // 나 -> 타겟으로의 방향 벡터값
+                Vector3 dir = target.position - transform.position;
+                // 나 -> 타겟까지의 거리
+                float dist = dir.magnitude;
+                // 방향 벡터값 정규화
+                dir.Normalize();
+                // 프레임당 이동 거리
+                float delta = MoveSpeed * Time.deltaTime;
+
+                if (dist < delta)
+                {
+                    delta = dist;
+                }
+                transform.Translate(dir * delta, Space.World);
+
+                // Rotation
+                // 회전 각
+                float angle = Vector3.Angle(transform.forward, dir);
+                // 회전 방향
+                float rotDir = 1.0f;
+                // 회전 방향을 구함, 나의 오른쪽과 목적지를 내적
+                if (Vector3.Dot(transform.right, dir) < 0.0f)
+                {
+                    rotDir *= -1.0f;
+                }
+                delta = rotSpeed * Time.deltaTime;
+
+                if (angle < delta)
+                {
+                    delta = angle;
+                }
+                transform.Rotate(transform.up * rotDir * delta, Space.World);
+            }
             yield return null;
         }
     }

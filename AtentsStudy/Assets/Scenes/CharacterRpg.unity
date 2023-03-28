@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 852957127}
   - component: {fileID: 852957128}
   m_Layer: 0
-  m_Name: AIProcession
+  m_Name: AIPerception
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
