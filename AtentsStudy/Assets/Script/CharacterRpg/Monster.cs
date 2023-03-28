@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : RPGMovement, IPerception
+public class Monster : RPGMovement, IPerception, IBattle
 {
     public enum State
     {
-        Create, Normal, Battle
+        Create, Normal, Battle, Death
     }
     public State myState = State.Create;
 
@@ -30,6 +30,11 @@ public class Monster : RPGMovement, IPerception
                 StopAllCoroutines();
                 FollowTarget(myTarget);
                 break;
+            case State.Death:
+                StopAllCoroutines();
+                myAnim.SetBool("isLive", false);
+                myAnim.SetTrigger("Dying");
+                break;
             default:
                 Debug.Log("상태 처리 에러");
                 break;
@@ -43,6 +48,8 @@ public class Monster : RPGMovement, IPerception
                 break;
             case State.Battle:
                 break;
+            case State.Death:
+                break;
             default:
                 Debug.Log("상태 처리 에러");
                 break;
@@ -53,6 +60,7 @@ public class Monster : RPGMovement, IPerception
     void Start()
     {
         orgPos = transform.position;
+        myAnim.SetBool("isLive", true);
         ChangeState(State.Normal);
     }
 
@@ -74,15 +82,38 @@ public class Monster : RPGMovement, IPerception
     // 따라다닐 타겟 탐색
     public void Find(Transform target)
     {
-        // 호출될 때 들어온 적의 transform 값 매개변수를 myTarget에 대입
-        myTarget = target;
-        ChangeState(State.Battle);
+        if (myAnim.GetBool("isLive"))
+        {
+            // 호출될 때 들어온 적의 transform 값 매개변수를 myTarget에 대입
+            myTarget = target;
+            ChangeState(State.Battle);
+        }
     }
 
     // 타겟이 없음
     public void LostTarget()
     {
-        myTarget = null;
-        ChangeState(State.Normal);
+        if (myAnim.GetBool("isLive"))
+        {
+            myTarget = null;
+            ChangeState(State.Normal);
+        }
+    }
+
+    public void OnAttack()
+    {
+        // myTarget이 IBattle 컴포넌트가 null이 아니라면
+        myTarget.GetComponent<IBattle>()?.OnDamage(0.0f);
+    }
+    public void OnDamage(float dmg)
+    {
+        myHp -= dmg;
+        if (myHp <= 0.0f)
+        {
+            ChangeState(State.Death);
+            transform.GetComponent<Collider>().enabled = false;
+            return;
+        }
+        myAnim.SetTrigger("Damage");
     }
 }
