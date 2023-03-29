@@ -69,7 +69,7 @@ public class RPGMovement : RPGProperty
         }
     }
 
-    /* 대상을 따라다니게 할 코루틴
+    /* 대상을 따라가서 공격할 코루틴
      * Transform을 받아오는 이유 :
      * position 값은 값형이라 코루틴 진행중 값이 변하지 않음
      * Transform은 참조형이라 코루틴 진행 중에도 값이 변하게 됨.

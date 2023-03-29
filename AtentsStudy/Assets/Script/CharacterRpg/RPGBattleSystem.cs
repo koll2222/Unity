@@ -5,6 +5,8 @@ using UnityEngine;
 interface IBattle
 {
     void OnDamage(float dmg);
+    // property, 얘는 변수가 아니라 함수임
+    bool IsLive { get; }
 }
 
 public class RPGBattleSystem : MonoBehaviour
