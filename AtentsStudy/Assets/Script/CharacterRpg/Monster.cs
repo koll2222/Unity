@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Monster : RPGMovement, IPerception, IBattle
 {
-
+    public static int TotalCount = 0;
     public bool IsLive
     {
         get => myState != State.Death;
@@ -70,6 +70,7 @@ public class Monster : RPGMovement, IPerception, IBattle
     // Start is called before the first frame update
     void Start()
     {
+        TotalCount++;
         orgPos = transform.position;
         ChangeState(State.Normal);
     }
@@ -136,8 +137,9 @@ public class Monster : RPGMovement, IPerception, IBattle
             yield return null;
         }
         Destroy(gameObject);
+        TotalCount--;
         {
-            //float uTime = 0.0f;
+         //float uTime = 0.0f;
          //while (myAnim.GetBool("isDead"))
          //{
          //    float delta = 0.2f * Time.deltaTime;
