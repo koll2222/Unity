@@ -10,6 +10,8 @@ public class PickingMouse : MonoBehaviour
     public UnityEvent<Vector3> clickAction = null;
     public UnityEvent<Transform> attackAction = null;
 
+    public UnityEvent<Vector3> rightClick = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class PickingMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             // 찍은 대상이 pickMask or enemyMask
@@ -36,6 +38,14 @@ public class PickingMouse : MonoBehaviour
                     // 이동
                     clickAction?.Invoke(hit.point);
                 }
+            }
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, pickMask))
+            {
+                rightClick?.Invoke(hit.point);
             }
         }
     }

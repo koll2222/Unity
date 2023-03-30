@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Monster : RPGMovement, IPerception, IBattle
 {
-    public static int TotalCount = 0;
+    public static int TotalCount = 3;
     public bool IsLive
     {
         get => myState != State.Death;
