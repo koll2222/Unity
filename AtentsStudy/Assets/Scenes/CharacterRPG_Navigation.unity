@@ -343,10 +343,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 404431023}
-  - component: {fileID: 404431029}
-  - component: {fileID: 404431028}
-  - component: {fileID: 404431026}
   - component: {fileID: 404431030}
+  - component: {fileID: 404431029}
+  - component: {fileID: 404431026}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -361,8 +360,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404431021}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -5.89}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49999905, z: -5.8899994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -384,25 +383,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &404431028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404431021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b761f6b28fcec9748b992c0b1c0ec1ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 5
-  rotSpeed: 360
-  AttackRange: 1.3
-  AttackDelay: 1
-  MaxHp: 100
-  AttackPoint: 35
-  myNav: {fileID: 404431030}
 --- !u!114 &404431029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +404,8 @@ MonoBehaviour:
   clickAction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 404431028}
-        m_TargetAssemblyTypeName: NavPlayer, Assembly-CSharp
+      - m_Target: {fileID: 404431030}
+        m_TargetAssemblyTypeName: AIPlayer, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -441,41 +421,25 @@ MonoBehaviour:
       m_Calls: []
   rightClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 404431028}
-        m_TargetAssemblyTypeName: NavPlayer, Assembly-CSharp
-        m_MethodName: OnWarp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!195 &404431030
-NavMeshAgent:
+      m_Calls: []
+--- !u!114 &404431030
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404431021}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.25
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 720
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9cca41d4006aa448ee0bd17ce74673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 5
+  rotSpeed: 360
+  AttackRange: 1.3
+  AttackDelay: 1
+  MaxHp: 100
+  AttackPoint: 35
 --- !u!1 &427193751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,19 +1791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackFunc:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   DeadFunc:
     m_PersistentCalls:
       m_Calls: []
@@ -1980,6 +1932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1434101593}
+  - component: {fileID: 1434101594}
   - component: {fileID: 1434101592}
   - component: {fileID: 1434101591}
   m_Layer: 0
@@ -2048,13 +2001,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434101590}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 15, z: -15}
+  m_LocalPosition: {x: 0, y: 15, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1434101594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434101590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c27d0bebde7a64597868ce53e2a5f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTarget: {fileID: 404431023}
+  RotSpeed: 5
 --- !u!1 &1527804898
 GameObject:
   m_ObjectHideFlags: 0

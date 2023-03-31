@@ -5,11 +5,16 @@ using UnityEngine.Events;
 
 public class RPGMovement : RPGProperty
 {
+    Coroutine coMove = null;
 
     protected void MoveToPos(Vector3 pos, UnityAction done = null)
     {
-        StopAllCoroutines();
-        StartCoroutine(MovingToPos(pos, done));
+        if (coMove != null)
+        {
+            StopCoroutine(coMove);
+            coMove = null;
+        }
+        coMove = StartCoroutine(MovingToPos(pos, done));
     }
     protected void FollowTarget(Transform target)
     {
