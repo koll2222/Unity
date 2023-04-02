@@ -6,7 +6,11 @@ using UnityEngine.Events;
 public class PickingMouse : MonoBehaviour
 {
     public LayerMask pickMask;
+    public LayerMask enemyMask;
     public UnityEvent<Vector3> clickAction = null;
+    public UnityEvent<Transform> attackAction = null;
+
+    public UnityEvent<Vector3> rightClick = null;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +21,31 @@ public class PickingMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if( Physics.Raycast(ray, out RaycastHit hit, 1000f, pickMask) )
+            // 찍은 대상이 pickMask or enemyMask
+            if( Physics.Raycast(ray, out RaycastHit hit, 1000f, pickMask | enemyMask) )
             {
-                clickAction?.Invoke(hit.point);
+                // 찍은 대상이 enemyMask인지
+                if ((1 << hit.transform.gameObject.layer & enemyMask) != 0)
+                {
+                    // 공격
+                    attackAction?.Invoke(hit.transform);
+                }
+                else
+                {
+                    // 이동
+                    clickAction?.Invoke(hit.point);
+                }
+            }
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, pickMask))
+            {
+                rightClick?.Invoke(hit.point);
             }
         }
     }
