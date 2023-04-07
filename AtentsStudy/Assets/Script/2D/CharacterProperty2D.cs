@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterProperty2D : RPGProperty
 {
-
     SpriteRenderer _renderer = null;
     protected SpriteRenderer myRenderer
     {
@@ -22,20 +21,20 @@ public class CharacterProperty2D : RPGProperty
         }
     }
 
-    // Rigidbody2D
     Rigidbody2D _rigid2D = null;
     protected Rigidbody2D myRigid2D
     {
         get
         {
-            if(_rigid2D == null)
+            if (_rigid2D == null)
             {
                 _rigid2D = GetComponent<Rigidbody2D>();
-                if(_rigid2D == null)
+                if (_rigid2D == null)
                 {
                     _rigid2D = GetComponentInChildren<Rigidbody2D>();
                 }
-            }return _rigid2D;
+            }
+            return _rigid2D;
         }
     }
 }
