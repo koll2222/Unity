@@ -34,6 +34,18 @@ public class DodgeItem : CharacterProperty2D
         if(((1 << collision.gameObject.layer) & crashMask) != 0)
         {
             Destroy(gameObject);
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                switch (myType)
+                {
+                    case Type.Bomb:
+                        DodgeBomb.Inst.Life--;
+                        break;
+                    case Type.Score:
+                        DodgeBomb.Inst.Score += 100;
+                        break;
+                }
+            }
         }
     }
 }

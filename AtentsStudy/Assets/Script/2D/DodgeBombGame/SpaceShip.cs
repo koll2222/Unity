@@ -20,7 +20,16 @@ public class SpaceShip : MonoBehaviour
                 myDir = 1.0f;
                 break;
         }
+    }
+
+    public void StartDrop()
+    {
         StartCoroutine(Dropping(Delay));
+    }
+
+    public void StopDrop()
+    {
+        StopAllCoroutines();
     }
 
     // Update is called once per frame
