@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Monster : RPGMovement, IPerception, IBattle
 {
+    public Transform myHeadPoint;
     public static int TotalCount = 3;
     public bool IsLive
     {
@@ -73,6 +74,12 @@ public class Monster : RPGMovement, IPerception, IBattle
         TotalCount++;
         orgPos = transform.position;
         ChangeState(State.Normal);
+
+        HpBarUI hpUi = (Instantiate(Resources.Load("RPG/HpBar"), SceneData.Inst.hpBars) as GameObject).GetComponent<HpBarUI>();
+        //Canvas canvas = FindObjectOfType<Canvas>();
+        //GameObject obj = GameObject.Find("Canvas");
+        hpUi.myRoot = myHeadPoint;
+        updateHp.AddListener(hpUi.updateHp);
     }
 
     // Update is called once per frame

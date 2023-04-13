@@ -25,6 +25,8 @@ public class RPGProperty : MonoBehaviour
     // 공격력
     public float AttackPoint = 35.0f;
 
+    public UnityEvent<float> updateHp;
+
     // 현재 체력 설정하는 property
     protected float curHp
     {
@@ -35,7 +37,11 @@ public class RPGProperty : MonoBehaviour
             return _curHp;
         }
         // _curHp 값의 범위 지정
-        set => _curHp = Mathf.Clamp(value, 0.0f, MaxHp);
+        set
+        {
+            _curHp = Mathf.Clamp(value, 0.0f, MaxHp);
+            updateHp?.Invoke(Mathf.Approximately(MaxHp,0.0f)? 0.0f : _curHp / MaxHp);
+        }
     }
 
     Animator anim = null;

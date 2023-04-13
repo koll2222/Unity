@@ -4,7 +4,7 @@ using UnityEngine;
 // navigation 사용을 위함
 using UnityEngine.AI;
 
-public class AIPlayer : AIMovement
+public class AIPlayer : AIMovement, IBattle
 {
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,10 @@ public class AIPlayer : AIMovement
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            OnDamage(10.0f);
+        }
     }
 
     public void OnMove(Vector3 pos)
@@ -37,5 +40,13 @@ public class AIPlayer : AIMovement
             }
             MoveByPath(path.corners);
         }
+    }
+    public void OnDamage(float dmg)
+    {
+        curHp -= dmg;
+    }
+    public bool IsLive 
+    {
+        get;
     }
 }
