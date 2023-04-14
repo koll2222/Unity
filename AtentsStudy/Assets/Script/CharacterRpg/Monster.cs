@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Monster : RPGMovement, IPerception, IBattle
 {
@@ -21,6 +22,8 @@ public class Monster : RPGMovement, IPerception, IBattle
     Vector3 orgPos;
 
     public Transform myTarget = null;
+
+    UnityAction deadAction = null;
 
     void ChangeState(State s)
     {
@@ -80,6 +83,11 @@ public class Monster : RPGMovement, IPerception, IBattle
         //GameObject obj = GameObject.Find("Canvas");
         hpUi.myRoot = myHeadPoint;
         updateHp.AddListener(hpUi.updateHp);
+        deadAction += () => Destroy(hpUi.gameObject);
+
+        MiniMapIcon icon = (Instantiate(Resources.Load("RPG/MiniMapIcon"), SceneData.Inst.miniMap) as GameObject).GetComponent<MiniMapIcon>();
+        icon.Initailize(transform, Color.red);
+        deadAction += () => Destroy(icon.gameObject);
     }
 
     // Update is called once per frame
@@ -143,18 +151,8 @@ public class Monster : RPGMovement, IPerception, IBattle
             transform.Translate(Vector3.down * Time.deltaTime);
             yield return null;
         }
+        deadAction?.Invoke();
         Destroy(gameObject);
         TotalCount--;
-        {
-         //float uTime = 0.0f;
-         //while (myAnim.GetBool("isDead"))
-         //{
-         //    float delta = 0.2f * Time.deltaTime;
-         //    uTime += delta;
-         //    if (uTime > 3.0f) Destroy(transform.gameObject);
-         //    transform.Translate(Vector3.down * delta);
-         //    yield return null;
-         //}
-        }
     }
 }

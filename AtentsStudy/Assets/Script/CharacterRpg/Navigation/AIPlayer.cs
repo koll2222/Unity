@@ -9,7 +9,8 @@ public class AIPlayer : AIMovement, IBattle
     // Start is called before the first frame update
     void Start()
     {
-        
+        MiniMapIcon icon = (Instantiate(Resources.Load("RPG/MiniMapIcon"), SceneData.Inst.miniMap) as GameObject).GetComponent<MiniMapIcon>();
+        icon.Initailize(transform, Color.green);
     }
 
     // Update is called once per frame
@@ -18,6 +19,10 @@ public class AIPlayer : AIMovement, IBattle
         if (Input.GetKeyDown(KeyCode.F1))
         {
             OnDamage(10.0f);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            curHp += 200f;
         }
     }
 
