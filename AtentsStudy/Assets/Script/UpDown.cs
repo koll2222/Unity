@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UpDown : MonoBehaviour
 {
-    float a = 0.0f;
-    float b = 0.0f;
-    float curDist = 0.0f;   //curent distance
+    //float a = 0.0f;
+    //float b = 0.0f;
+    //float curDist = 0.0f;   //curent distance
     float dist = 2.5f;
     Vector3 dir = new Vector3(0, 1, 0);
     // Start is called before the first frame update

@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour
     public float Speed_Bomb = 10.0f;
     //public GameObject target = null;
     public GameObject onFireEffect = null;
-    int target_cnt = 0;
+    //int target_cnt = 0;
     // Start is called before the first frame update
     void Start()
     {

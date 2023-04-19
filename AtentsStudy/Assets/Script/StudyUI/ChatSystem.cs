@@ -14,7 +14,7 @@ public class ChatSystem : MonoBehaviour
     public Transform myContents;
     public TMP_InputField myInput;
     public Scrollbar myScroll;
-    public TMPro.TMP_Dropdown myMenu;
+    public TMP_Dropdown myMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +31,7 @@ public class ChatSystem : MonoBehaviour
             data.text = GameUtils.Inst.strBuilder.ToString();
             myMenu.options.Add(data);
         }
-        myMenu.value = 0;
+        myMenu.value = 1;
     }
 
     string GetTypeColor(ChatType type)

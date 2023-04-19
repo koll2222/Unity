@@ -10,7 +10,7 @@ public class GameUtils : MonoBehaviour
     {
         get
         {
-            if(_inst = null)
+            if(_inst == null)
             {
                 _inst = FindObjectOfType<GameUtils>();
                 if(_inst == null)
