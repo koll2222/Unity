@@ -87,5 +87,5 @@ public class ChatSystem : MonoBehaviour
         yield return new WaitForEndOfFrame();
         myScroll.value = 0;
     }
-    
+
 }

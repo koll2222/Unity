@@ -35,7 +35,7 @@ public class Monster : RPGMovement, IPerception, IBattle
                 // Move ¾Ö´Ï¸ÞÀÌ¼Ç ÁßÁö
                 myAnim.SetBool("isMoving", false);
                 StopAllCoroutines();
-                StartCoroutine(Roaming(Random.Range(1.0f,3.0f)));
+                StartCoroutine(Roaming(Random.Range(1.0f, 3.0f)));
                 break;
             case State.Battle:
                 StopAllCoroutines();
@@ -70,24 +70,27 @@ public class Monster : RPGMovement, IPerception, IBattle
                 break;
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
         TotalCount++;
         orgPos = transform.position;
         ChangeState(State.Normal);
+        if (SceneData.Inst != null)
+        {
+            HpBarUI hpUi = (Instantiate(Resources.Load("RPG/HpBar"), SceneData.Inst.hpBars) as GameObject).GetComponent<HpBarUI>();
+            //Canvas canvas = FindObjectOfType<Canvas>();
+            //GameObject obj = GameObject.Find("Canvas");
+            hpUi.myRoot = myHeadPoint;
+            updateHp.AddListener(hpUi.updateHp);
+            deadAction += () => Destroy(hpUi.gameObject);
 
-        HpBarUI hpUi = (Instantiate(Resources.Load("RPG/HpBar"), SceneData.Inst.hpBars) as GameObject).GetComponent<HpBarUI>();
-        //Canvas canvas = FindObjectOfType<Canvas>();
-        //GameObject obj = GameObject.Find("Canvas");
-        hpUi.myRoot = myHeadPoint;
-        updateHp.AddListener(hpUi.updateHp);
-        deadAction += () => Destroy(hpUi.gameObject);
+            MiniMapIcon icon = (Instantiate(Resources.Load("RPG/MiniMapIcon"), SceneData.Inst.miniMap) as GameObject).GetComponent<MiniMapIcon>();
 
-        MiniMapIcon icon = (Instantiate(Resources.Load("RPG/MiniMapIcon"), SceneData.Inst.miniMap) as GameObject).GetComponent<MiniMapIcon>();
-        icon.Initailize(transform, Color.red);
-        deadAction += () => Destroy(icon.gameObject);
+            icon.Initailize(transform, Color.red);
+            deadAction += () => Destroy(icon.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -102,7 +105,7 @@ public class Monster : RPGMovement, IPerception, IBattle
         Vector3 pos = orgPos;
         pos.x += Random.Range(-4.0f, 4.0f);
         pos.z += Random.Range(-4.0f, 4.0f);
-        MoveToPos(pos, ()=> StartCoroutine(Roaming(Random.Range(1.0f,3.0f))));
+        MoveToPos(pos, () => StartCoroutine(Roaming(Random.Range(1.0f, 3.0f))));
     }
 
     // µû¶ó´Ù´Ò Å¸°Ù Å½»ö
@@ -130,7 +133,7 @@ public class Monster : RPGMovement, IPerception, IBattle
     {
         curHp -= dmg;
 
-        if (Mathf.Approximately(curHp,0.0f))
+        if (Mathf.Approximately(curHp, 0.0f))
             ChangeState(State.Death);
         else
             myAnim.SetTrigger("Damage");

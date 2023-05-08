@@ -23,7 +23,7 @@ public class RPGProperty : MonoBehaviour
     // 현재 체력
     float _curHp = -100.0f;
     // 공격력
-    public float AttackPoint = 35.0f;
+    public float AttackPoint = 10.0f;
 
     public UnityEvent<float> updateHp;
 
