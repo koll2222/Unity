@@ -28,6 +28,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         if(_inst == null)
         {
             _inst = this as T;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

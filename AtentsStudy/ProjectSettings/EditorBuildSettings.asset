@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StudySceneLoad/IntroScene.unity
+    guid: f530d7aa281ed3548a18f7324c8cd1d6
+  - enabled: 1
+    path: Assets/Scenes/StudySceneLoad/TitleScene.unity
+    guid: ff1f453c78a09c34c9d91040d0e3d129
+  - enabled: 1
+    path: Assets/Scenes/StudySceneLoad/LoadingScene.unity
+    guid: e5194ca413abdd641a6bbdd827229b06
+  - enabled: 1
+    path: Assets/Scenes/StudySceneLoad/PlayScene.unity
+    guid: e28808a084114274494299b12ab94bab
   m_configObjects: {}
