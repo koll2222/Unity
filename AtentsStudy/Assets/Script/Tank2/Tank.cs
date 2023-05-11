@@ -97,7 +97,7 @@ public class Tank : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            myBomb.OnFire();
+            myBomb?.OnFire();
             myBomb = null;
 
 
@@ -109,7 +109,8 @@ public class Tank : MonoBehaviour
             //obj.transform.localPosition = Vector3.zero;
             //obj.transform.localRotation = myMuzzle.localRotation;
 
-            GameObject obj = Instantiate(orgBomb, myMuzzle);
+            //GameObject obj = Instantiate(orgBomb, myMuzzle);
+            GameObject obj = ObjectPool.Instance.GetObject<Bomb>(orgBomb, myMuzzle.position, myMuzzle.rotation, myMuzzle);
 
             // .GetComponent<T>() : T¸¦ ÂüÁ¶
             myBomb = obj.GetComponent<Bomb>();

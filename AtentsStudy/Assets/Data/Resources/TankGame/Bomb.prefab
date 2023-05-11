@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4078417356790420205}
   - component: {fileID: 4078417356790420204}
   - component: {fileID: 5790483878169249014}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -113,6 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed_Bomb: 10
   onFireEffect: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  crashMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!54 &5790483878169249014
 Rigidbody:
   m_ObjectHideFlags: 0

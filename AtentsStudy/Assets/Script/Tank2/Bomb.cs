@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    float movedDist = 0f;
     bool isFire = false;
     public float Speed_Bomb = 10.0f;
     //public GameObject target = null;
     public GameObject onFireEffect = null;
+    public LayerMask crashMask;
     //int target_cnt = 0;
     // Start is called before the first frame update
     void Start()
@@ -21,13 +23,21 @@ public class Bomb : MonoBehaviour
         if (isFire)
         {
             float delta = Speed_Bomb * Time.deltaTime;
+            movedDist += delta;
+            if(movedDist > 50f)
+            {
+                //Destroy(gameObject);
+                ObjectPool.Instance.ReleaseObject<Bomb>(gameObject);
+                movedDist = 0f;
+                isFire = false;
+            }
 
             //Raycast는 월드 기준으로 체크하기에 로컬값이 아닌 월드 값을 이용해야 함.
             Ray ray = new Ray();
             ray.origin = transform.position;
             ray.direction = transform.forward;
             // out : 선언과 참조형으로의 변환이 동시에 이루어짐
-            if(Physics.Raycast(ray, out RaycastHit hit, delta))
+            if(Physics.Raycast(ray, out RaycastHit hit, delta, crashMask))
             {   //부딪힘이 있을 때 실행이 됨
                 DestroyObject(hit.transform.gameObject);
                
